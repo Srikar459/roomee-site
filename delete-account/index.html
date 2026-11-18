@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Delete your Roomee account</title>
+<meta name="description" content="Permanently delete your Roomee account and find out what happens to your data.">
+<meta name="referrer" content="no-referrer">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* Colors mirror src/theme/tokens.ts in the app. */
+  :root {
+    color-scheme: light;
+    --bg: #f6f6fa; --surface: #ffffff; --subtle: #eff0f5; --border: #e3e5ee;
+    --text: #14161c; --muted: #6b7080; --primary: #5b5bd6; --on-primary: #ffffff;
+    --positive: #15803d; --positive-soft: #e6f6ec; --negative: #dc2626; --negative-soft: #fdecec; --on-danger: #ffffff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: dark;
+      --bg: #0e1014; --surface: #181b22; --subtle: #222631; --border: #2c313d;
+      --text: #f3f4f8; --muted: #9aa0b0; --primary: #8585f2; --on-primary: #ffffff;
+      --positive: #34d399; --positive-soft: #11372a; --negative: #f87171; --negative-soft: #3d1a1a; --on-danger: #14161c;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 400 15px/22px "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    -webkit-text-size-adjust: 100%;
+  }
+  main { max-width: 520px; margin: 0 auto; padding: 32px 16px 48px; }
+  .brand { font-size: 17px; line-height: 24px; font-weight: 800; color: var(--primary); letter-spacing: -0.2px; margin: 0 0 24px; }
+  h1 { font-size: 28px; line-height: 36px; font-weight: 800; letter-spacing: -0.6px; margin: 0 0 8px; outline: none; }
+  h2 { font-size: 17px; line-height: 24px; font-weight: 600; margin: 0 0 8px; }
+  p { margin: 0 0 12px; }
+  .muted { color: var(--muted); }
+  .small { font-size: 13px; line-height: 18px; font-weight: 500; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 20px; margin-top: 20px; }
+  ul { margin: 0 0 12px; padding-left: 20px; }
+  .card ul:last-child { margin-bottom: 0; }
+  li { margin-bottom: 8px; }
+  li:last-child { margin-bottom: 0; }
+  label { display: block; font-size: 13px; line-height: 18px; font-weight: 500; color: var(--muted); margin-bottom: 6px; }
+  .field { margin-bottom: 16px; }
+  input {
+    width: 100%; min-height: 52px; padding: 12px 14px; font: inherit; font-size: 16px; color: var(--text);
+    background: var(--surface); border: 1.5px solid var(--border); border-radius: 14px;
+  }
+  input:focus { outline: none; border-color: var(--primary); }
+  button {
+    width: 100%; min-height: 52px; padding: 0 18px; font: inherit; font-weight: 600; border-radius: 14px;
+    border: 1px solid transparent; cursor: pointer;
+  }
+  button:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+  button[disabled] { opacity: 0.55; cursor: default; }
+  .primary { background: var(--primary); color: var(--on-primary); }
+  .danger { background: var(--negative); color: var(--on-danger); }
+  .outline { background: transparent; color: var(--text); border-color: var(--border); margin-top: 12px; }
+  .error { background: var(--negative-soft); color: var(--negative); border-radius: 14px; padding: 12px; margin-bottom: 16px; font-size: 13px; line-height: 18px; font-weight: 500; }
+  .done { background: var(--positive-soft); color: var(--positive); border-radius: 14px; padding: 12px; font-weight: 600; }
+  .email { font-weight: 600; overflow-wrap: anywhere; }
+  [hidden] { display: none !important; }
+  a { color: var(--primary); font-weight: 600; }
+  .footer { text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+<main>
+  <p class="brand">Roomee</p>
+
+  <!-- Step 1: explain and sign in -->
+  <section id="step-signin">
+    <h1 tabindex="-1">Delete your Roomee account</h1>
+    <p class="muted">Sign in to confirm it's your account. Deleting it can't be undone.</p>
+
+    <div class="card">
+      <h2>What gets deleted</h2>
+      <ul>
+        <li>Your login and password</li>
+        <li>Your name and email address</li>
+        <li>Your notifications, app settings and your phone's push notification token</li>
+        <li>Your place in your room and in its chore rotations</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>What stays</h2>
+      <ul>
+        <li>Expenses, settlements, chore history and poll votes you were part of stay in the room so your roommates' balances still add up. They show "Former roommate" instead of your name.</li>
+        <li>If you're the last person in the room, the room and everything in it is deleted too.</li>
+      </ul>
+    </div>
+
+    <form id="signin-form" class="card" novalidate>
+      <h2>Sign in</h2>
+      <div id="signin-error" class="error" role="alert" hidden></div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" type="email" autocomplete="email" autocapitalize="none" spellcheck="false" required>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" type="password" autocomplete="current-password" required>
+      </div>
+      <button id="signin-button" class="primary" type="submit">Continue</button>
+      <p class="muted small" style="margin:12px 0 0">Forgot your password? Open the Roomee app and tap "Forgot password" on the login screen, then come back here.</p>
+    </form>
+
+    <div class="card">
+      <h2>Can't sign in?</h2>
+      <p class="muted" style="margin:0">Email <a href="mailto:{{SUPPORT_EMAIL}}?subject=Delete%20my%20Roomee%20account">{{SUPPORT_EMAIL}}</a> from the address you signed up with and ask us to delete your account. We'll confirm it's you and delete it within 7 days. You can also delete it in the app: Profile, then Delete account.</p>
+    </div>
+
+    <p class="muted small footer"><a href="../privacy/">Privacy policy</a></p>
+  </section>
+
+  <!-- Step 2: final confirmation -->
+  <section id="step-confirm" hidden>
+    <h1 tabindex="-1">Delete this account?</h1>
+    <p>You're signed in as <span id="confirm-email" class="email"></span>.</p>
+    <p class="muted">You'll leave your room straight away and won't be able to log in again. This can't be undone.</p>
+    <div class="card">
+      <div id="confirm-error" class="error" role="alert" hidden></div>
+      <button id="delete-button" class="danger" type="button">Delete my account</button>
+      <button id="cancel-button" class="outline" type="button">Keep my account</button>
+    </div>
+  </section>
+
+  <!-- Step 3: done -->
+  <section id="step-done" hidden>
+    <h1 tabindex="-1">Your account is deleted</h1>
+    <p class="done">Your Roomee account no longer exists.</p>
+    <p class="muted">You can close this page, and you can remove the app from your phone. If you sign up again later, that starts a new account.</p>
+  </section>
+</main>
+
+<script>
+  // Same project address and publishable key as src/config.ts. The key is safe in public code:
+  // delete_account() only acts on the signed-in user, taken from their own access token.
+  var SUPABASE_URL = 'https://igihmzxjqffehrxjoyjk.supabase.co';
+  var SUPABASE_KEY = 'sb_publishable_kfemUcNoLppoae8OMUB8tg_UwItgaUQ';
+
+  // Held in memory only, and gone when the page closes.
+  var accessToken = null;
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  function show(step) {
+    ['signin', 'confirm', 'done'].forEach(function (s) { $('step-' + s).hidden = s !== step; });
+    window.scrollTo(0, 0);
+    $('step-' + step).querySelector('h1').focus();
+  }
+
+  function setError(id, message) {
+    $(id).textContent = message || '';
+    $(id).hidden = !message;
+  }
+
+  function setBusy(button, busy, label) {
+    button.disabled = busy;
+    button.textContent = label;
+  }
+
+  function headers(token) {
+    var h = { apikey: SUPABASE_KEY, 'Content-Type': 'application/json' };
+    if (token) h.Authorization = 'Bearer ' + token;
+    return h;
+  }
+
+  function signInMessage(status, body) {
+    var code = body.error_code || body.code;
+    if (code === 'invalid_credentials') return 'Wrong email or password. Please try again.';
+    if (code === 'email_not_confirmed') return "This email was never confirmed, so the account isn't active yet. Open the Roomee app and finish signing up to use it.";
+    if (status === 429) return 'Too many tries. Wait a minute and try again.';
+    return "Something went wrong on our side. Please try again in a moment.";
+  }
+
+  $('signin-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = $('email').value.trim();
+    var password = $('password').value;
+    if (!email || !password) {
+      setError('signin-error', 'Enter your email and password.');
+      return;
+    }
+    setError('signin-error', null);
+    setBusy($('signin-button'), true, 'Checking…');
+    fetch(SUPABASE_URL + '/auth/v1/token?grant_type=password', {
+      method: 'POST',
+      headers: headers(),
+      body: JSON.stringify({ email: email, password: password })
+    }).then(function (res) {
+      return res.json().catch(function () { return {}; }).then(function (body) {
+        if (!res.ok || !body.access_token) {
+          setError('signin-error', signInMessage(res.status, body));
+          return;
+        }
+        accessToken = body.access_token;
+        $('password').value = '';
+        $('confirm-email').textContent = (body.user && body.user.email) || email;
+        setError('confirm-error', null);
+        show('confirm');
+      });
+    }).catch(function () {
+      setError('signin-error', "Couldn't connect. Check your internet and try again.");
+    }).then(function () {
+      setBusy($('signin-button'), false, 'Continue');
+    });
+  });
+
+  $('delete-button').addEventListener('click', function () {
+    setError('confirm-error', null);
+    setBusy($('delete-button'), true, 'Deleting…');
+    $('cancel-button').disabled = true;
+    fetch(SUPABASE_URL + '/rest/v1/rpc/delete_account', {
+      method: 'POST',
+      headers: headers(accessToken),
+      body: '{}'
+    }).then(function (res) {
+      if (res.ok) {
+        accessToken = null;
+        show('done');
+      } else if (res.status === 401) {
+        setError('confirm-error', 'Your sign-in expired, so nothing was deleted. Tap "Keep my account" and sign in again.');
+      } else {
+        setError('confirm-error', 'Your account was not deleted because something went wrong on our side. Please try again in a moment.');
+      }
+    }).catch(function () {
+      setError('confirm-error', "Couldn't connect, so we can't confirm your account was deleted. Check your internet and try again.");
+    }).then(function () {
+      setBusy($('delete-button'), false, 'Delete my account');
+      $('cancel-button').disabled = false;
+    });
+  });
+
+  $('cancel-button').addEventListener('click', function () {
+    // Ends the session this page started. The app's own session on the phone isn't touched.
+    if (accessToken) {
+      fetch(SUPABASE_URL + '/auth/v1/logout?scope=local', { method: 'POST', headers: headers(accessToken) }).catch(function () {});
+    }
+    accessToken = null;
+    setError('signin-error', null);
+    show('signin');
+  });
+</script>
+</body>
+</html>
